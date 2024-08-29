@@ -24,6 +24,7 @@ class SAM2ImagePredictor:
         mask_threshold=0.0,
         max_hole_area=0.0,
         max_sprinkle_area=0.0,
+        input_image_size=1024,
         **kwargs,
     ) -> None:
         """
@@ -59,11 +60,18 @@ class SAM2ImagePredictor:
         self.mask_threshold = mask_threshold
 
         # Spatial dim for backbone feature maps
-        self._bb_feat_sizes = [
-            (256, 256),
-            (128, 128),
-            (64, 64),
-        ]
+        if input_image_size == 1024:
+            self._bb_feat_sizes = [
+                (256, 256),
+                (128, 128),
+                (64, 64),
+            ]
+        else:
+            self._bb_feat_sizes = [
+                (128, 128),
+                (64, 64),
+                (32, 32),
+            ]
 
     @classmethod
     def from_pretrained(cls, model_id: str, **kwargs) -> "SAM2ImagePredictor":

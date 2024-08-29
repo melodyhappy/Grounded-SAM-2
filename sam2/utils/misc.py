@@ -12,6 +12,7 @@ import numpy as np
 import torch
 from PIL import Image
 from tqdm import tqdm
+import cv2
 
 
 def get_sdpa_settings():
@@ -234,6 +235,41 @@ def load_video_frames(
     images -= img_mean
     images /= img_std
     return images, video_height, video_width
+
+
+def preprocess_frame(
+    image,
+    image_size=512,
+    offload_video_to_cpu=False,
+    img_mean=(0.485, 0.456, 0.406),
+    img_std=(0.229, 0.224, 0.225),
+    async_loading_frames=False,
+):
+    """
+    Load the video frames from a directory of JPEG files ("<frame_index>.jpg" format).
+
+    The frames are resized to image_size x image_size and are loaded to GPU if
+    `offload_video_to_cpu` is `False` and to CPU if `offload_video_to_cpu` is `True`.
+
+    You can load a frame asynchronously by setting `async_loading_frames` to `True`.
+    """
+    
+    img_mean = torch.tensor(img_mean, dtype=torch.float32)[:, None, None]
+    img_std = torch.tensor(img_std, dtype=torch.float32)[:, None, None]
+    image = np.ascontiguousarray(image[..., -1::-1 ]) # BGR2RGB
+    # img_np = np.array(image.resize((image_size, image_size))) 
+    img_np = cv2.resize(image,(image_size, image_size)) #现在这个size有点大
+    if img_np.dtype == np.uint8:  # np.uint8 is expected for JPEG images
+        img_np = img_np / 255.0
+    images = torch.from_numpy(img_np).permute(2, 0, 1)
+    if not offload_video_to_cpu:
+        images = images.cuda()
+        img_mean = img_mean.cuda()
+        img_std = img_std.cuda()
+    # normalize by mean and std
+    images -= img_mean
+    images /= img_std
+    return images
 
 
 def fill_holes_in_mask_scores(mask, max_area):
