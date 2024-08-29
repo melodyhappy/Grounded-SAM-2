@@ -15,7 +15,7 @@ features:
 
 - If you only want to track the objects in the initial frame, you can directly use the official code. The usage instructions are as follows
 
-**🔥 Project Highlight**
+# **🔥 Project Highlight**
 
 In this repo, we've supported the following demo with **simple implementations**:
 - **Ground and Segment Anything** with Grounding DINO, Grounding DINO 1.5 & 1.6 and SAM 2
