@@ -1,6 +1,20 @@
 # Grounded SAM 2
 Grounded SAM 2: Ground and Track Anything in Videos with [Grounding DINO](https://arxiv.org/abs/2303.05499), [Grounding DINO 1.5](https://arxiv.org/abs/2405.10300), [Florence-2](https://arxiv.org/abs/2311.06242) and [SAM 2](https://arxiv.org/abs/2408.00714).
 
+# add more modifications by zhaoyu
+features:
+- Modifying code to track new targets in non-initial frames while retaining historical frame information. The official code discards historical information when tracking new targets in non-initial frames. Objects that appear in historical frames but not in the current frame will be discarded and will no longer be tracked subsequently.
+
+- **grounded_sam2_tracking_for_normal_video.py** is suitable for normally continuous videos with slow-moving camera and object, **grounded_sam2_tracking_for_fast_video.py** is suitable for scenarios where the camera moves quickly and the continuity of video frames is poor. The main logical difference between the two is: how to confirm which objects in the current frame are newly appeared.
+
+- The original code only supports input from offline videos; it now supports online video input.
+
+- By modifying the input image size, the speed has been increased by 30%. The official size is 1024; the code supports both 1024 and 512.
+
+- Other parameter descriptions: detection_step is the frame interval for grounding-dino detection.
+
+- If you only want to track the objects in the initial frame, you can directly use the official code. The usage instructions are as follows
+
 **🔥 Project Highlight**
 
 In this repo, we've supported the following demo with **simple implementations**:
