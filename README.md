@@ -1,7 +1,7 @@
 # Grounded SAM 2
 Grounded SAM 2: Ground and Track Anything in Videos with [Grounding DINO](https://arxiv.org/abs/2303.05499), [Grounding DINO 1.5](https://arxiv.org/abs/2405.10300), [Florence-2](https://arxiv.org/abs/2311.06242) and [SAM 2](https://arxiv.org/abs/2408.00714).
 
-# add more modifications by zhaoyu
+# Add more modifications by zhaoyu
 features:
 - **Modifying code to track new targets in non-initial frames while retaining historical frame information.** The official code discards historical information when tracking new targets in non-initial frames. Objects that appear in historical frames but not in the current frame will be discarded and will no longer be tracked subsequently.
 
