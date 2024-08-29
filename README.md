@@ -3,17 +3,17 @@ Grounded SAM 2: Ground and Track Anything in Videos with [Grounding DINO](https:
 
 # add more modifications by zhaoyu
 features:
-- Modifying code to track new targets in non-initial frames while retaining historical frame information. The official code discards historical information when tracking new targets in non-initial frames. Objects that appear in historical frames but not in the current frame will be discarded and will no longer be tracked subsequently.
+- **Modifying code to track new targets in non-initial frames while retaining historical frame information.** The official code discards historical information when tracking new targets in non-initial frames. Objects that appear in historical frames but not in the current frame will be discarded and will no longer be tracked subsequently.
 
 - **grounded_sam2_tracking_for_normal_video.py** is suitable for normally continuous videos with slow-moving camera and object, **grounded_sam2_tracking_for_fast_video.py** is suitable for scenarios where the camera moves quickly and the continuity of video frames is poor. The main logical difference between the two is: how to confirm which objects in the current frame are newly appeared.
 
 - The original code only supports input from offline videos; it now supports online video input.
 
-- By modifying the input image size, the speed has been increased by 30%. The official size is 1024; the code supports both 1024 and 512.
+- By modifying the input image size, the speed has been increased by 30%. The official size is 1024; the code supports both 1024 and 512. You can use the parameter input_image_size to switch.
 
 - Other parameter descriptions: detection_step is the frame interval for grounding-dino detection.
 
-- If you only want to track the objects in the initial frame, you can directly use the official code. The usage instructions are as follows
+- **If you only want to track the objects in the initial frame, you can directly use the official code. The usage instructions are as follows**
 
 # **🔥 Project Highlight**
 
